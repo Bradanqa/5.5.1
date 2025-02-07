@@ -1,0 +1,15 @@
+FROM ubuntu:jammy
+
+RUN apt-get update && \
+    apt-get install -y clang cmake make
+
+WORKDIR /app
+
+COPY . .
+
+RUN mkdir build \
+    && cd build \
+    && cmake -DCMAKE_CXX_COMPILER=clang++ .. \
+    && cmake --build .
+
+CMD ["./build/app"]
